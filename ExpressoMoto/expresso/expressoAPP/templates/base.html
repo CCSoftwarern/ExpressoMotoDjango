@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Meu Site{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+        
+    </main>
+    {% block menu %}
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-sm-auto bg-light sticky-top">
+              <div class="d-flex flex-sm-column flex-row flex-nowrap bg-light align-items-center sticky-top">
+                  <a href="/" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+                      <i class="bi-bootstrap fs-1"></i>
+                  </a>
+                  <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                      <li class="nav-item">
+                          <a href="{% url 'home' %}" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                              <i class="bi-house fs-1"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="{% url 'listar_documentos' %}" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                              <i class="bi-speedometer2 fs-1"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                              <i class="bi-table fs-1"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                              <i class="bi-heart fs-1"></i>
+                          </a>
+                      </li>
+                      <li>
+                          <a href="#" class="nav-link py-3 px-2" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Customers">
+                              <i class="bi-people fs-1"></i>
+                          </a>
+                      </li>
+                  </ul>
+                  <div class="dropdown">
+                      <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="bi-person-circle h2"></i>
+                      </a>
+                      <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                          <li><a class="dropdown-item" href="#">New project...</a></li>
+                          <li><a class="dropdown-item" href="#">Settings</a></li>
+                          <li><a class="dropdown-item" href="#">Profile</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+          {% endblock %}
+          
+          <div class="col-sm p-3 min-vh-100">
+            <div class="row">
+                <div class="col-10">
+                    
+
+
+                    {% block entregas %}
+
+                     
+                    {% endblock %}
+
+                </div>
+                <div class="col-2">
+
+                    {% block detalhes %}
+
+                     
+                    {% endblock %}
+
+                </div>
+            
+            
+            </div>
+        
+          </div>
+      </div>
+    </div>
+
+    {% if messages %}
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    {% for message in messages %}
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="https://icons.getbootstrap.com/assets/icons/info-circle.svg" class="rounded me-2" alt="...">
+        <strong class="me-auto">Mensagem</strong>
+        <small class="text-body-secondary">Agora</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+       {{ message }}
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %} 
+    
+    <!-- Script para ativar os toasts automaticamente -->
+
+    <!-- Adiciona os links do Bootstrap 5 (CSS e JS) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var toastElements = document.querySelectorAll('.toast');
+            var toastList = [...toastElements].map(function(toastElement) {
+                return new bootstrap.Toast(toastElement);
+            });
+            toastList.forEach(function(toast) {
+                toast.show();
+            });
+        });
+    </script>
+    
+
+
+
+
+</body>
+</html>

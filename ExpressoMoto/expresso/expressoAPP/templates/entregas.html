@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+
+{% block entregas %}
+<h2><i class="bi-speedometer2 fs-1"></i> Entregas</h2>
+<hr>
+<div class="m-4 container mt-4">
+    <a class="btn btn-success btn-lg" href="" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-plus-circle" style="font-size: 1.2rem"></i> Nova </a>
+    <a class="btn btn-dark btn-lg" href="{% url 'listar_documentos' %}"><i class="bi bi-arrow-repeat" style="font-size: 1.2rem"></i> Atualizar</a>
+
+</div>
+{% if documentos %}
+<div class="m-4 container mt-4">
+
+                    <table class="table table-hover shadow mt-4" >
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome cliente</th>
+                                <th>Retirada</th>
+                                <th>Entrega</th>
+                                <th>Pagamento</th>
+                                <th>Valor</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load l10n %}
+                            {% for documento in documentos %}
+                                <tr>
+                                    <td>{{ documento.id }}</td>
+                                    <td class="fs-5">{{ documento.nm_cliente }}</td>
+                                    <td class="fs-5">{{ documento.end_retirada }}</td>
+                                    <td class="fs-5">{{ documento.end_entrega }}</td>
+                                    <td class="fs-5">{{ documento.nm_forma_pgto }}</td>
+                                    <td class="fs-5">{{ documento.valor|localize }}</td>
+                                    <td style="width:150px"><div class="btn-group" role="group" aria-label="Basic example">
+                                        <a class="btn btn-warning" href=""><i class="bi bi-pencil"></i></a>
+                                        <form action="{% url 'remover_documento' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ documento.id }}">
+                                            <button type="submit"   class="btn btn-danger "><i class="bi bi-trash"></i></button>
+                                        </form>
+                                        <a class="btn btn-info" href=""><i class="bi bi-eye"></i></a>
+                                        <a class="btn btn-primary" id="liveToastBtn" href=""><i class="bi bi-send"></i></a>
+                                      </div>
+                                      </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+        
+              </div>
+
+    
+    </div>
+</div>
+    {% else %}
+    <div class="m-4 container-fluid border mt-4">
+        <p class="fs-3 mt-4 text-center" style="color: grey;">Nenhum documento encontrado.</p>
+
+    </div>
+   
+    {% endif %}
+
+{% endblock %}
+
+
+
+{% block detalhes %}
+
+<div class="container mt-4">
+
+
+
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Nova entrega</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="{% url 'adicionar_documento' %}" method="post">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Nome</span>
+                <input id="nome" name="nome" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required>
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text">Retirada</span>
+                <textarea id="retirada" name="retirada" class="form-control" aria-label="With textarea" placeholder="Informe o local de retirada" required></textarea>
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text">Entrega</span>
+                <textarea id="entrega" name="entrega" class="form-control" aria-label="With textarea"  placeholder="Informe o local de entrega" required></textarea>
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text">Obs</span>
+                <textarea id="obs" name="obs" class="form-control" aria-label="With textarea" required></textarea>
+              </div>
+
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Forma</label>
+                <select name="selecao" class="form-select" id="inputGroupSelect01" required>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Pix Motoboy">Pix Motoboy</option>
+                  <option value="Pix Cooperativa">Pix Cooperativa</option>
+                </select>
+              </div>
+
+              
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Valor</label>
+                <select name="valor" class="form-select" id="inputGroupSelect01" required>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                </select>
+              </div>
+
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Gravar</button>
+              </div>
+
+        </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+
+
+
+
